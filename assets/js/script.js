@@ -1,40 +1,74 @@
+// Card template
+let cardTemplate = {
+	nombreCompleto: "",
+	color: "",
+	img: ""
+}
+
+let app = new Vue({
+	el: "#app",
+	data: {
+		cards: []
+	}
+})
+
 fetch('http://hp-api.herokuapp.com/api/characters')
 	.then(res => res.json())
 	.then(res => {
 
 		console.log(res);
 
+		// Duplicar la cantidad de elementos retornadas
+		res = res.concat(res);
 
-		res.forEach(obj => {
-		
-			let i = 0;
-			if (obj.image.length !== 0) {
-				let namePara = document.createElement("p");
-				namePara.innerHTML = obj.name;
-				namePara.setAttribute("data-card-id", i);
-				document.body.appendChild(namePara);
+		// Darle un orden "random" a los elementos
+		shuffle(res);
 
-				i++;
+		res.forEach(element => {
+
+			if (element.image.length === 0) {
+				return;
 			}
-					
+
+			let card = structuredClone(cardTemplate);
+			card.nombreCompleto = element.name;
+			card.img = element.image;
+
+			switch (element.house) {
+				case "Gryffindor":
+					card.color = "#A44A3F";
+					break;
+				case "Slytherin":
+					card.color = "#4a7946";
+					break;
+				case "Hufflepuff":
+					card.color = "#E89C5A";
+					break;
+				case "Ravenclaw":
+					card.color = "#4E598C";
+					break;
+				default:
+					card.color = "#888888";
+					break;
+			}
+
+			app.cards.push(card)
 		});
-
-		let cards = document.querySelectorAll("[data-card-id]");
-
-		cards.forEach(card => card.addEventListener("click", e => {
-
-			let elem = e.target;
-			
-			if (elem.classList.contains("clicked")) {
-				elem.classList.remove("clicked");
-			} else {
-				elem.classList.add("clicked");
-			}
-
-		}));
 
 	});
 
-function cardClicked() {
-	console.log(this);
+function shuffle(array) {
+	let currentIndex = array.length
+	let randomIndex;
+
+	while (currentIndex != 0) {
+
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+
+		[array[currentIndex], array[randomIndex]] = [
+			array[randomIndex], array[currentIndex]];
+	}
+
+	return array;
 }

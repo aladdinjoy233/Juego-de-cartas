@@ -8,8 +8,11 @@
 	--c-yellow: #E89C5A;
 	--c-maroon: #A44A3F;
 	--c-blue: #4E598C;
+	--c-green: #4a7946;
+	--c-gray: #888888;
 
 	--c-bg-dark: #171717;
+	--c-bg-card: #3c3c3c;
 	--c-text: var(--c-white);
 
 	// Fonts
@@ -38,4 +41,42 @@ body {
 
 .clicked {
 	color: #E89C5A;
+}
+
+.cards-container {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 1rem;
+	margin: 3rem;
+}
+
+.card {
+	background-color: var(--c-bg-card);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: .25rem;
+	padding: 1rem .5rem;
+	gap: 1rem;
+	border: 1px solid;
+	transition: transform 150ms ease;
+	cursor: pointer;
+
+	&__img {
+		display: flex;
+		justify-content: center;
+		width: 7.5rem;
+		height: 10rem;
+
+		img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+		}
+	}
+
+	&:hover {
+		transform: scale(1.05);
+	}
 }

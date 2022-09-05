@@ -6,10 +6,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
 	<link rel="stylesheet" href="assets/css/style.css">
+
 	<script src="assets/js/script.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
 	<title>Juego de Cartas</title>
 </head>
 <body>
+
+	<div id="app">
 	
+		<div class="cards-container">
+			
+			<div v-for="card in cards" :style="{ borderColor: card.color }" class="card">
+				<div class="card__img"><img :src="card.img"></div>
+				<p class="card__desc">{{ card.nombreCompleto }}</p>
+			</div>
+
+		</div>
+
+	</div>
+
 </body>
 </html>
