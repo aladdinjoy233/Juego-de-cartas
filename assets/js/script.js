@@ -48,7 +48,7 @@ fetch('http://hp-api.herokuapp.com/api/characters')
 					card.color = "#4E598C";
 					break;
 				default:
-					card.color = "#888888";
+					card.color = "#616161";
 					break;
 			}
 

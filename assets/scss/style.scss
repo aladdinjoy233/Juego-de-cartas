@@ -9,7 +9,7 @@
 	--c-maroon: #A44A3F;
 	--c-blue: #4E598C;
 	--c-green: #4a7946;
-	--c-gray: #888888;
+	--c-gray: #616161;
 
 	--c-bg-dark: #171717;
 	--c-bg-card: #3c3c3c;
@@ -51,44 +51,89 @@ body {
 }
 
 .card {
-	background-color: var(--c-bg-card);
-	border-radius: .25rem;
-	// border: 1px solid;
 	cursor: pointer;
-	transform-style: preserve-3d;
-	transition: all 500ms ease, transform 150ms ease;
-	position: relative;
-
-	&__img {
-		display: flex;
-		justify-content: center;
-		width: 7.5rem;
-		height: 10rem;
-
-		img {
-			width: 100%;
-			height: auto;
-			object-fit: cover;
-		}
-	}
+	width: 100%;
+	height: 20vw;
+	border-radius: .25rem;
 
 	&:hover {
-		// transform: scale(1.05);
-		transform: rotateY(180deg);
+		.rotatableDiv {
+			// transform: rotateY(180deg);
+			animation: flip-vertical-fwd 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+		}
+	}
+	
+	.rotatableDiv {
+
+		transform-style: preserve-3d;
+		width: 100%;
+		height: 100%;
+		position: relative;
+
+		animation: flip-vertical-rvs 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 	}
 
-	.back-side {
+	.back {
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		backface-visibility: hidden;
-		background-color: var(--c-yellow);
+		background-color: var(--c-bg-card);
+
+		background-image: url("../img/wand-sparkles.svg");
+		background-repeat: no-repeat;
+    background-size: 4rem;
+    background-position: center;
 	}
 
-	.front-side {
+	.front {
+		position: absolute;
 		width: 100%;
 		height: 100%;
 		backface-visibility: hidden;
 		transform: rotateY(180deg);
+		padding: 1rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&__img {
+			position: relative;
+			width: 90%;
+			height: 95%;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		&__desc {
+			text-align: center;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: .35rem 0px;
+		}
 	}
+}
+
+@keyframes flip-vertical-fwd {
+  0% {
+    transform: scale(1) rotateY(0);
+  }
+  100% {
+    transform: scale(1.1) rotateY(180deg);
+  }
+}
+
+@keyframes flip-vertical-rvs {
+  0% {
+		transform: scale(1.1) rotateY(180deg);
+	}
+  100% {
+		transform: scale(1) rotateY(0);
+  }
 }

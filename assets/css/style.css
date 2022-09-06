@@ -5,11 +5,11 @@
   --c-maroon: #A44A3F;
   --c-blue: #4E598C;
   --c-green: #4a7946;
-  --c-gray: #888888;
+  --c-gray: #616161;
   --c-bg-dark: #171717;
   --c-bg-card: #3c3c3c;
   --c-text: var(--c-white);
-  --ff-nunito: "Nunito", sans-serif;
+  --ff-nunito: 'Nunito', sans-serif;
   --fw-light: 300;
   --fw-regular: 400;
   --fw-medium: 500;
@@ -43,40 +43,84 @@ body {
 }
 
 .card {
-  background-color: var(--c-bg-card);
-  border-radius: 0.25rem;
   cursor: pointer;
-  transform-style: preserve-3d;
-  transition: all 500ms ease, transform 150ms ease;
-  position: relative;
-}
-.card__img {
-  display: flex;
-  justify-content: center;
-  width: 7.5rem;
-  height: 10rem;
-}
-.card__img img {
   width: 100%;
-  height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
+  height: 20vw;
+  border-radius: .25rem;
 }
-.card:hover {
-  transform: rotateY(180deg);
+
+.card:hover .rotatableDiv {
+  animation: flip-vertical-fwd 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
-.card .back-side {
+
+.card .rotatableDiv {
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  animation: flip-vertical-rvs 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+.card .back {
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  background-color: var(--c-yellow);
+  backface-visibility: hidden;
+  background-color: var(--c-bg-card);
+  background-image: url("../img/wand-sparkles.svg");
+  background-repeat: no-repeat;
+  background-size: 4rem;
+  background-position: center;
 }
-.card .front-side {
+
+.card .front {
+  position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   transform: rotateY(180deg);
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.card .front__img {
+  position: relative;
+  width: 90%;
+  height: 95%;
+}
+
+.card .front__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .front__desc {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: .35rem 0px;
+}
+
+@keyframes flip-vertical-fwd {
+  0% {
+    transform: scale(1) rotateY(0);
+  }
+  100% {
+    transform: scale(1.1) rotateY(180deg);
+  }
+}
+
+@keyframes flip-vertical-rvs {
+  0% {
+    transform: scale(1.1) rotateY(180deg);
+  }
+  100% {
+    transform: scale(1) rotateY(0);
+  }
+}
+/*# sourceMappingURL=style.css.map */
