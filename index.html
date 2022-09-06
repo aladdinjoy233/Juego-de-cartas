@@ -20,8 +20,14 @@
 		<div class="cards-container">
 			
 			<div v-for="card in cards" :style="{ borderColor: card.color }" class="card">
-				<div class="card__img"><img :src="card.img"></div>
-				<p class="card__desc">{{ card.nombreCompleto }}</p>
+
+				<div class="back-side"></div>
+				
+				<div class="front-side">
+					<div class="card__img"><img :src="card.img"></div>
+					<p class="card__desc">{{ card.nombreCompleto }}</p>
+				</div>
+
 			</div>
 
 		</div>
