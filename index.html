@@ -9,11 +9,14 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 
 	<script src="assets/js/script.js" defer></script>
+	<script src="assets/js/animations.js" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 
 	<title>Juego de Cartas</title>
 </head>
 <body>
+	<div class="svg-animation hide" id="svg"></div>
+	<button style="width: 50px; height: 50px; position: absolute; top: 0; left: 0;"></button>
 
 	<div id="app">
 	
@@ -22,6 +25,8 @@
 			<div v-for="card in cards" class="card">
 
 				<div class="rotatableDiv">
+
+
 					<div class="back"></div>
 					
 					<div class="front" :style="{ backgroundColor: card.color }">
@@ -37,5 +42,6 @@
 
 	</div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js" integrity="sha512-yAr4fN9WZH6hESbOwoFZGtSgOP+LSZbs/JeoDr02pOX4yUFfI++qC9YwIQXIGffhnzliykJtdWTV/v3PxSz8aw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>

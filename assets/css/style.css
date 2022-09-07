@@ -9,7 +9,7 @@
   --c-bg-dark: #171717;
   --c-bg-card: #3c3c3c;
   --c-text: var(--c-white);
-  --ff-nunito: 'Nunito', sans-serif;
+  --ff-nunito: "Nunito", sans-serif;
   --fw-light: 300;
   --fw-regular: 400;
   --fw-medium: 500;
@@ -46,66 +46,80 @@ body {
   cursor: pointer;
   width: 100%;
   height: 20vw;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
-
 .card:hover .rotatableDiv {
-  animation: flip-vertical-fwd 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  -webkit-animation: flip-vertical-fwd 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+          animation: flip-vertical-fwd 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
-
 .card .rotatableDiv {
   transform-style: preserve-3d;
   width: 100%;
   height: 100%;
   position: relative;
 }
-
 .card .back {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
   background-color: var(--c-bg-card);
   background-image: url("../img/wand-sparkles.svg");
   background-repeat: no-repeat;
   background-size: 4rem;
   background-position: center;
 }
-
 .card .front {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
   transform: rotateY(180deg);
   padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .card .front__img {
   position: relative;
   width: 90%;
   height: 95%;
 }
-
 .card .front__img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
-
 .card .front__desc {
   text-align: left;
   position: absolute;
-  bottom: .5rem;
+  bottom: 0.5rem;
   left: 0;
-  padding: .35rem .5rem .35rem .25rem;
+  padding: 0.35rem 0.5rem 0.35rem 0.25rem;
   background-color: var(--c-bg-dark);
   width: auto;
   border-top-right-radius: 5rem;
   border-bottom-right-radius: 5rem;
+}
+
+.svg-animation {
+  width: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+@-webkit-keyframes flip-vertical-fwd {
+  0% {
+    transform: scale(1) rotateY(0);
+  }
+  100% {
+    transform: scale(1.1) rotateY(180deg);
+  }
 }
 
 @keyframes flip-vertical-fwd {
@@ -116,7 +130,14 @@ body {
     transform: scale(1.1) rotateY(180deg);
   }
 }
-
+@-webkit-keyframes flip-vertical-rvs {
+  0% {
+    transform: scale(1.1) rotateY(180deg);
+  }
+  100% {
+    transform: scale(1) rotateY(0);
+  }
+}
 @keyframes flip-vertical-rvs {
   0% {
     transform: scale(1.1) rotateY(180deg);
@@ -125,4 +146,3 @@ body {
     transform: scale(1) rotateY(0);
   }
 }
-/*# sourceMappingURL=style.css.map */

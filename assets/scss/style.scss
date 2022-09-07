@@ -123,6 +123,16 @@ body {
 	}
 }
 
+.svg-animation {
+	width: 200px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+}
+
+// .hide {}
+
 @keyframes flip-vertical-fwd {
   0% {
     transform: scale(1) rotateY(0);
