@@ -70,7 +70,7 @@ body {
 		height: 100%;
 		position: relative;
 
-		animation: flip-vertical-rvs 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+		// animation: flip-vertical-rvs 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 	}
 
 	.back {
@@ -110,12 +110,15 @@ body {
 		}
 
 		&__desc {
-			text-align: center;
+			text-align: left;
 			position: absolute;
-			bottom: 0;
+			bottom: .5rem;
 			left: 0;
-			width: 100%;
-			padding: .35rem 0px;
+			padding: .35rem .5rem .35rem .25rem;
+			background-color: var(--c-bg-dark);
+			width: auto;
+			border-top-right-radius: 5rem;
+			border-bottom-right-radius: 5rem;
 		}
 	}
 }

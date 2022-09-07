@@ -58,7 +58,6 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  animation: flip-vertical-rvs 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
 .card .back {
@@ -98,12 +97,15 @@ body {
 }
 
 .card .front__desc {
-  text-align: center;
+  text-align: left;
   position: absolute;
-  bottom: 0;
+  bottom: .5rem;
   left: 0;
-  width: 100%;
-  padding: .35rem 0px;
+  padding: .35rem .5rem .35rem .25rem;
+  background-color: var(--c-bg-dark);
+  width: auto;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
 }
 
 @keyframes flip-vertical-fwd {
