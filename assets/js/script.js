@@ -2,13 +2,19 @@
 let cardTemplate = {
 	nombreCompleto: "",
 	color: "",
-	img: ""
+	img: "",
+	isVisible: false,
 }
 
 let app = new Vue({
 	el: "#app",
 	data: {
 		cards: []
+	},
+	methods: {
+		darVuelta: (card) => {
+			card.isVisible = !card.isVisible;
+		}
 	}
 })
 

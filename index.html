@@ -20,8 +20,7 @@
 			
 			<div v-for="card in cards" class="card">
 
-				<div class="rotatableDiv">
-
+				<div class="rotatableDiv" :class="{ rotate: card.isVisible, 'de-rotate': !card.isVisible  }" @mousedown="darVuelta(card)">
 
 					<div class="back"></div>
 					
