@@ -15,8 +15,12 @@
 </head>
 <body>
 	<div id="app">
+
+		<div class="controls">
+			<h2>Juego de cartas <em>Harry Potter</em></h2>
+		</div>
 	
-		<div class="cards-container">
+		<div class="cards-container" v-if="!isLoading">
 			
 			<div v-for="card in cards" class="card">
 
@@ -36,5 +40,6 @@
 		</div>
 
 	</div>
+
 </body>
 </html>

@@ -13,12 +13,19 @@ let app = new Vue({
 		cards: [],
 		cardsCorrectas: [],
 		cantidadFlipped: 0,
-		puedeVoltear: true
+		puedeVoltear: true,
+		intentos: 0,
+		isLoading: true,
+		totalCards: 0
 	},
 
 	methods: {
 		darVuelta: (card) => {
 			if (card.guessed) {
+				return;
+			}
+
+			if (card.isFlipped) {
 				return;
 			}
 
@@ -36,6 +43,7 @@ let app = new Vue({
 				alert("Hubo un error, recargue la pagina");
 			}
 			if (cantidadNueva == 2) {
+				app.intentos++;
 				app.puedeVoltear = false;
 
 				setTimeout(() => {
@@ -55,11 +63,39 @@ let app = new Vue({
 			} else {
 				app.puedeVoltear = true;
 			}
+		},
 
-			console.log(app.cantidadFlipped);
-			console.log(app.cardsCorrectas);
+		cardsCorrectas: (nuevo, viejo) => {
+			if (nuevo.length == app.cards.length / 2) {
+				alert(`Juego finalizado! \nCantidad de intentos: ${app.intentos}`);
+			}
+		},
+
+		cards: (nuevo, viejo) => {
+			if (nuevo.length === app.totalCards) {
+				const imgArray = app.cards.map(card => card.img);
+
+				const images = imgArray.map(imageSrc => {
+					return new Promise((resolve, reject) => {
+						const img = new Image();
+						img.src = imageSrc;
+						img.onload = resolve;
+						img.onerror = reject;
+					});
+				});
+		
+				Promise.all(images).then(() => { 
+					console.log("Images loaded!");
+					app.isLoading = false;
+				}).catch(error => {
+					console.error("Some image(s) failed loading!");
+					console.error(error.message)
+				});
+
+			}
 		}
 	}
+	
 })
 
 fetch('http://hp-api.herokuapp.com/api/characters')
@@ -71,6 +107,8 @@ fetch('http://hp-api.herokuapp.com/api/characters')
 
 		// Darle un orden "random" a los elementos
 		shuffle(res);
+
+		app.totalCards = res.filter(elem => elem.image.length !== 0).length;
 
 		res.forEach(element => {
 
