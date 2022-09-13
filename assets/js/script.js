@@ -1,19 +1,63 @@
-// Card template
+// card template
 let cardTemplate = {
 	nombreCompleto: "",
 	color: "",
 	img: "",
-	isVisible: false,
+	isFlipped: false,
+	guessed: false,
 }
 
 let app = new Vue({
 	el: "#app",
 	data: {
-		cards: []
+		cards: [],
+		cardsCorrectas: [],
+		cantidadFlipped: 0,
+		puedeVoltear: true
 	},
+
 	methods: {
 		darVuelta: (card) => {
-			card.isVisible = !card.isVisible;
+			if (card.guessed) {
+				return;
+			}
+
+			if (app.puedeVoltear) {
+				card.isFlipped = !card.isFlipped;
+				app.cantidadFlipped++;
+			}
+		}
+	},
+
+	watch: {
+		cantidadFlipped: (cantidadNueva, cantidadVieja) => {
+			if (cantidadNueva > 2) {
+				app.puedeVoltear = false;
+				alert("Hubo un error, recargue la pagina");
+			}
+			if (cantidadNueva == 2) {
+				app.puedeVoltear = false;
+
+				setTimeout(() => {
+					let flippedCards = app.cards.filter(card => card.isFlipped && !card.guessed);
+
+					if (cartasIguales(flippedCards[0], flippedCards[1])) {
+						app.cardsCorrectas.push(flippedCards[0]);
+						flippedCards.forEach(card => card.guessed = true)
+					} else {
+						flippedCards.forEach(card => card.isFlipped = false);
+					}
+					
+					app.cantidadFlipped = 0;
+					app.puedeVoltear = true;
+				}, 1000)
+
+			} else {
+				app.puedeVoltear = true;
+			}
+
+			console.log(app.cantidadFlipped);
+			console.log(app.cardsCorrectas);
 		}
 	}
 })
@@ -21,8 +65,6 @@ let app = new Vue({
 fetch('http://hp-api.herokuapp.com/api/characters')
 	.then(res => res.json())
 	.then(res => {
-
-		console.log(res);
 
 		// Duplicar la cantidad de elementos retornadas
 		res = res.concat(res);
@@ -77,4 +119,15 @@ function shuffle(array) {
 	}
 
 	return array;
+}
+
+function cartasIguales(cartaUno, cartaDos) {
+	if (
+		cartaUno.nombreCompleto === cartaDos.nombreCompleto &&
+		cartaUno.color === cartaDos.color &&
+		cartaUno.img === cartaDos.img
+		) {
+			return true;
+		}
+	return false;
 }
