@@ -56,7 +56,8 @@ body {
 
 .controls {
   width: 100%;
-  height: 10rem;
+  height: 30rem;
+  max-height: 10rem;
   background-color: var(--c-bg-card);
   position: sticky;
   z-index: 10;
@@ -65,6 +66,20 @@ body {
   padding: 1rem 3rem;
   box-shadow: 0px 10px 57px 0px rgba(0, 0, 0, 0.24);
   text-align: center;
+  transition: max-height 250ms ease;
+  display: grid;
+  place-items: center;
+}
+
+.controls.not-playing {
+  max-height: 30rem;
+}
+
+.controls .controls-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 .loading-modal {
@@ -187,5 +202,43 @@ body {
   width: auto;
   border-top-right-radius: 5rem;
   border-bottom-right-radius: 5rem;
+}
+
+button {
+  height: 3em;
+  width: 8em;
+  border: none;
+  border-radius: 10em;
+  background: var(--c-yellow);
+  font-size: 17px;
+  color: var(--c-bg-dark);
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:hover {
+  animation: shake3856 0.3s linear infinite both;
+}
+
+@keyframes shake3856 {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
 }
 /*# sourceMappingURL=style.css.map */

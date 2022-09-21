@@ -16,11 +16,17 @@ let app = new Vue({
 		puedeVoltear: true,
 		intentos: 0,
 		isLoading: true,
-		totalCards: 0
+		isPlaying: false,
+		totalCards: 0,
+		timerCount: 10
 	},
 
 	methods: {
 		darVuelta: (card) => {
+			if (!app.isPlaying) {
+				return;
+			}
+
 			if (card.guessed) {
 				return;
 			}
