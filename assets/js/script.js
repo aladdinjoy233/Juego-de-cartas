@@ -25,7 +25,6 @@ let app = new Vue({
 		totalCards: 0,
 
 		timerCount: 300,
-		// timerCount: 10,
 		intervalTimer: null
 
 	},
