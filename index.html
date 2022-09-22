@@ -17,12 +17,12 @@
 <body>
 	<div id="app">
 
-		<div class="controls" :class="{ 'not-playing': !isPlaying }">
+		<div class="controls" :class="{ 'not-playing': (!isPlaying || isDone) }">
 			<div class="controls-content">
-				<h2>Juego de cartas <em>Harry Potter</em></h2>
-				<p>Tenes que combinar las cartas que aparecen en menos de 5 minutos</p>
-				<button v-if="!isPlaying" @click="isPlaying = !isPlaying">Jugar</button>
-				<button v-else @click="isPlaying = !isPlaying">{{ timerCount }}</button>
+				<h2 v-html="titulo"></h2>
+				<p>{{ subtitlo }}</p>
+				<button v-if="!isPlaying" @click="jugar">Jugar</button>
+				<button v-else>{{ formattedTimeLeft }}</button>
 			</div>
 		</div>
 	
@@ -45,12 +45,12 @@
 
 		</div>
 
-		<div class="loading-modal" v-if="isLoading">
+		<!-- <div class="loading-modal" v-if="isLoading">
 			<div class="modal">
 				<h3>Cargando las cartas</h3>
 				<i class="fa-solid fa-spinner fa-spin-pulse"></i>
 			</div>
-		</div>
+		</div> -->
 
 	</div>
 

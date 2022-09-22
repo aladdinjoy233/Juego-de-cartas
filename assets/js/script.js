@@ -10,6 +10,10 @@ let cardTemplate = {
 let app = new Vue({
 	el: "#app",
 	data: {
+
+		titulo: "Juego de cartas <em>Harry Potter</em>",
+		subtitlo: "Tenes que combinar las cartas que aparecen en menos de 5 minutos",
+
 		cards: [],
 		cardsCorrectas: [],
 		cantidadFlipped: 0,
@@ -17,13 +21,22 @@ let app = new Vue({
 		intentos: 0,
 		isLoading: true,
 		isPlaying: false,
+		isDone: false,
 		totalCards: 0,
-		timerCount: 10
+
+		timerCount: 300,
+		// timerCount: 10,
+		intervalTimer: null
+
 	},
 
 	methods: {
 		darVuelta: (card) => {
 			if (!app.isPlaying) {
+				return;
+			}
+
+			if (app.isDone) {
 				return;
 			}
 
@@ -39,7 +52,16 @@ let app = new Vue({
 				card.isFlipped = !card.isFlipped;
 				app.cantidadFlipped++;
 			}
-		}
+		},
+
+		jugar: () => {
+			app.isPlaying = !app.isPlaying;
+			app.startTimer();
+		},
+
+		startTimer() {
+			this.intervalTimer = setInterval(() => {this.timerCount -= 1}, 1000);
+    }
 	},
 
 	watch: {
@@ -73,7 +95,10 @@ let app = new Vue({
 
 		cardsCorrectas: (nuevo, viejo) => {
 			if (nuevo.length == app.cards.length / 2) {
-				alert(`Juego finalizado! \nCantidad de intentos: ${app.intentos}`);
+				app.isDone = !app.isDone;
+				clearInterval(app.intervalTimer);
+				app.titulo = "Juego finalizado! Felicitaciones!";
+				app.subtitlo = `Cantidad de intentos: ${app.intentos} / Para jugar de nuevo, recargue la pagina!`;
 			}
 		},
 
@@ -99,8 +124,39 @@ let app = new Vue({
 				});
 
 			}
+		},
+
+		timerCount: (nuevo, viejo) => {
+			if (nuevo == 0) {
+				clearInterval(app.intervalTimer);
+				app.isDone = !app.isDone;
+
+				if (app.cardsCorrectas.length == app.cards.length / 2) {
+					app.titulo = "Juego finalizado! Felicitaciones!";
+					app.subtitlo = `Cantidad de intentos: ${app.intentos} / Para jugar de nuevo, recargue la pagina!`;
+				} else {
+					app.titulo = "Juego finalizado! Has perdido 😞";
+					app.subtitlo = `Cantidad de intentos: ${app.intentos} / Para jugar de nuevo, recargue la pagina!`;
+				}
+			}
 		}
-	}
+	},
+
+	computed: {
+    formattedTimeLeft() {
+      const timeLeft = this.timerCount
+			
+      const minutes = Math.floor(timeLeft / 60)
+			
+      let seconds = timeLeft % 60
+			
+      if (seconds < 10) {
+        seconds = `0${seconds}`
+      }
+			
+      return `${minutes}:${seconds}`
+    }
+  }
 	
 })
 
